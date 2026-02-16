@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="or">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ଦାନ ରସିଦ</title>
+
+<style>
+body{
+  font-family:system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: linear-gradient(135deg,#ffe0b2,#fff3e0);
+  padding:15px;
+}
+
+/* main heading */
+h2{
+  text-align:center;
+  color:#bf360c;
+  margin-bottom:10px;
+  text-shadow:0 2px 4px rgba(0,0,0,0.15);
+}
+
+h2 span.small{
+  font-size:15px;
+  font-weight:normal;
+  color:#5d4037;
+}
+
+.form-box{
+  max-width:420px;
+  margin:0 auto;
+  background:#ffffffcc;
+  padding:15px 15px 20px;
+  border-radius:12px;
+  box-shadow:0 6px 16px rgba(0,0,0,0.18);
+  border:2px solid #ffb74d;
+}
+
+label{
+  font-size:13px;
+  color:#5d4037;
+  display:block;
+  margin-top:6px;
+  margin-bottom:2px;
+}
+
+input,button{
+  width:100%;
+  padding:10px;
+  margin:4px 0 6px;
+  font-size:15px;
+  border-radius:8px;
+  border:1px solid #ffcc80;
+  box-sizing:border-box;
+}
+
+input:focus{
+  outline:none;
+  border-color:#ff9800;
+  box-shadow:0 0 0 2px rgba(255,152,0,0.25);
+}
+
+/* primary button */
+button{
+  background:linear-gradient(135deg,#ff6f00,#ff9800);
+  color:white;
+  border:none;
+  font-weight:600;
+  cursor:pointer;
+  box-shadow:0 4px 10px rgba(0,0,0,0.2);
+  transition:transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+button:hover{
+  transform:translateY(-1px);
+  box-shadow:0 6px 14px rgba(0,0,0,0.25);
+}
+
+button:active{
+  transform:translateY(0);
+  box-shadow:0 3px 8px rgba(0,0,0,0.2);
+}
+
+/* RECEIPT CARD */
+.receipt-wrapper{
+  max-width:420px;
+  margin:18px auto 0;
+}
+
+.receipt{
+  background: #fffdf8;
+  padding:18px 18px 20px;
+  margin-top:5px;
+  border-radius:14px;
+  display:none;
+  position:relative;
+  box-shadow:0 10px 24px rgba(0,0,0,0.22);
+  border:3px solid #ff9800; /* bold border */
+}
+
+/* decorative gradient border glow */
+.receipt::before{
+  content:"";
+  position:absolute;
+  inset:-3px;
+  border-radius:16px;
+  background:linear-gradient(135deg,#ff6f00,#ffca28,#ff6f00);
+  z-index:-1;
+  opacity:0.6;
+}
+
+/* inner content */
+.receipt-inner{
+  border-radius:10px;
+  padding:10px 10px 14px;
+  background:#fffdf8;
+}
+
+/* header strip */
+.receipt-header{
+  text-align:center;
+  padding:8px 10px 10px;
+  margin:-10px -10px 10px;
+  border-radius:10px 10px 6px 6px;
+  background:linear-gradient(135deg,#e65100,#ff9800);
+  color:#fff8e1;
+  border-bottom:3px solid #ffcc80;
+}
+
+.receipt-header h3{
+  margin:0;
+  font-size:18px;
+}
+
+.receipt-header p{
+  margin:2px 0 0;
+  font-size:13px;
+  color:#fffde7;
+}
+
+/* data rows */
+.row{
+  display:flex;
+  justify-content:space-between;
+  margin:4px 0;
+  font-size:14px;
+  color:#4e342e;
+}
+
+.row b{
+  color:#3e2723;
+}
+
+.row span.value{
+  font-weight:600;
+}
+
+/* footer line */
+.footer-text{
+  text-align:center;
+  margin-top:10px;
+  font-size:14px;
+  color:#5d4037;
+}
+
+.sign{
+  margin-top:14px;
+  font-size:14px;
+}
+
+/* receipt buttons */
+.printbtn{
+  background:linear-gradient(135deg,#c62828,#f44336);
+  color:white;
+  border:none;
+  padding:10px;
+  margin-top:10px;
+  width:100%;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:600;
+  box-shadow:0 4px 10px rgba(0,0,0,0.2);
+}
+
+.printbtn:nth-of-type(2){
+  background:linear-gradient(135deg,#1b5e20,#43a047);
+}
+
+.printbtn:hover{
+  transform:translateY(-1px);
+  box-shadow:0 6px 14px rgba(0,0,0,0.25);
+}
+
+.success{
+  display:none;
+  color:#1b5e20;
+  font-weight:bold;
+  text-align:center;
+  margin-top:8px;
+}
+
+/* print mode */
+@media print{
+  body{
+    background:white;
+  }
+  .form-box,
+  button,
+  .success,
+  .form-box *{
+    display:none !important;
+  }
+  .receipt-wrapper{
+    margin-top:0;
+  }
+  .receipt{
+    box-shadow:none;
+    border:1px solid #000;
+  }
+  .receipt::before{
+    display:none;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<h2>🏛️ ଅଲଣ୍ଡା ମହାବୀର ମନ୍ଦିର<br><span class="small">ପ୍ରତିଷ୍ଠା ଉତ୍ସବ ଦାନ ରସିଦ</span></h2>
+
+<div class="form-box">
+  <label for="name">ଦାତାକାରୀଙ୍କ ନାମ</label>
+  <input id="name" placeholder="ଉଦାହରଣ: ରମେଶ ନାୟକ">
+
+  <label for="mobile">ମୋବାଇଲ୍ ନମ୍ବର</label>
+  <input id="mobile" placeholder="10 digit ନମ୍ବର">
+
+  <label for="amount">ଦାନ ରାଶି (₹)</label>
+  <input id="amount" placeholder="ଉଦାହରଣ: 501">
+
+  <label for="purpose">ଦାନର ଉଦ୍ଦେଶ୍ୟ</label>
+  <input id="purpose" placeholder="ଉଦାହରଣ: ପ୍ରତିଷ୍ଠା ଉତ୍ସବ ବ୍ୟୟ">
+
+  <button onclick="generate()">ରସିଦ ତିଆରି କରନ୍ତୁ</button>
+
+  <p id="successMsg" class="success">
+    ✅ ଦାନ ସଫଳଭାବେ ଗ୍ରହଣ କରାଗଲା
+  </p>
+</div>
+
+<div class="receipt-wrapper">
+  <div class="receipt" id="receipt">
+    <div class="receipt-inner">
+      <div class="receipt-header">
+        <h3>🚩 ଅଲଣ୍ଡା ଶ୍ରୀ ମହାବୀର ମନ୍ଦିର 🚩</h3>
+        <p>ପ୍ରତିଷ୍ଠା ଉତ୍ସବ ଦାନ ରସିଦ</p>
+      </div>
+
+      <div class="row">
+        <b>ରସିଦ ନମ୍ବର:</b>
+        <span class="value" id="rno"></span>
+      </div>
+      <div class="row">
+        <b>ତାରିଖ:</b>
+        <span class="value" id="rdate"></span>
+      </div>
+      <div class="row">
+        <b>ଦାତାକାରୀ:</b>
+        <span class="value" id="rname"></span>
+      </div>
+      <div class="row">
+        <b>ମୋବାଇଲ୍:</b>
+        <span class="value" id="rmobile"></span>
+      </div>
+      <div class="row">
+        <b>ରାଶି:</b>
+        <span class="value">₹ <span id="ramount"></span></span>
+      </div>
+      <div class="row">
+        <b>ଉଦ୍ଦେଶ୍ୟ:</b>
+        <span class="value" id="rpurpose"></span>
+      </div>
+
+      <p class="footer-text">
+        🙏 ଆପଣଙ୍କ ଶଭଚିନ୍ତା ଓ ସହଯୋଗ ପାଇଁ ଅନେକ ଧନ୍ୟବାଦ 🙏
+      </p>
+
+      <p class="sign">ସହି: ____________________________</p>
+
+      <button class="printbtn" onclick="window.print()">Print / PDF</button>
+
+      <button class="printbtn" onclick="sendWhatsAppReceipt()">
+        WhatsApp Receipt Share
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* auto increment ରସିଦ ନମ୍ବର (localStorage) */
+var receiptCounter = parseInt(localStorage.getItem("receiptCounter")) || 1;
+
+/* DD-MM-YYYY */
+function getTodayDateText(){
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth() + 1;
+  var yyyy = today.getFullYear();
+  if(dd < 10) dd = "0" + dd;
+  if(mm < 10) mm = "0" + mm;
+  return dd + "-" + mm + "-" + yyyy;
+}
+
+function generate(){
+  var name    = document.getElementById("name").value.trim();
+  var amount  = document.getElementById("amount").value.trim();
+  var purpose = document.getElementById("purpose").value.trim();
+  var mobile  = document.getElementById("mobile").value.trim();
+
+  if(!name || !amount){
+    alert("ଦାତାଙ୍କ ନାମ ଏବଂ ରାଶି ଭରଣ କରନ୍ତୁ");
+    return;
+  }
+
+  var receiptNo = "AMM-" + String(receiptCounter).padStart(3,'0');
+  receiptCounter++;
+  localStorage.setItem("receiptCounter", receiptCounter);
+
+  var dateText = getTodayDateText();
+
+  document.getElementById("receipt").style.display = "block";
+  document.getElementById("successMsg").style.display = "block";
+
+  document.getElementById("rno").innerText      = receiptNo;
+  document.getElementById("rdate").innerText    = dateText;
+  document.getElementById("rname").innerText    = name;
+  document.getElementById("ramount").innerText  = amount;
+  document.getElementById("rpurpose").innerText = purpose;
+  document.getElementById("rmobile").innerText  = mobile;
+
+  /* clear form */
+  document.getElementById("name").value    = "";
+  document.getElementById("mobile").value  = "";
+  document.getElementById("amount").value  = "";
+  document.getElementById("purpose").value = "";
+}
+
+/* WhatsApp – ରସିଦ ସହ share */
+function sendWhatsAppReceipt(){
+  var mobile = document.getElementById("rmobile").innerText.trim();
+  if(!mobile){
+    alert("ପ୍ରଥମେ ରସିଦ ତିଆରି କରନ୍ତୁ ।");
+    return;
+  }
+
+  var name      = document.getElementById("rname").innerText;
+  var amount    = document.getElementById("ramount").innerText;
+  var purpose   = document.getElementById("rpurpose").innerText;
+  var dateText  = document.getElementById("rdate").innerText;
+  var receiptNo = document.getElementById("rno").innerText;
+
+  var msg =
+"🚩 ଅଲଣ୍ଡା ଶ୍ରୀ ମହାବୀର ମନ୍ଦିର 🚩
+" +
+"ପ୍ରତିଷ୍ଠା ଉତ୍ସବ ଦାନ ରସିଦ
+
+" +
+"ରସିଦ ନମ୍ବର: " + receiptNo + "
+" +
+"ତାରିଖ: " + dateText + "
+" +
+"ଦାତା: " + name + "
+" +
+"ରାଶି: ₹" + amount + "
+" +
+"ଉଦ୍ଦେଶ୍ୟ: " + purpose + "
+
+" +
+"🙏 ଆପଣଙ୍କ ସହଯୋଗ ପାଇଁ ଧନ୍ୟବାଦ 🙏";
+
+  window.open(
+    "https://wa.me/91" + mobile +
+    "?text=" + encodeURIComponent(msg),
+    "_blank"
+  );
+}
+</script>
+
+</body>
+</html>
